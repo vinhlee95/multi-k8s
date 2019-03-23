@@ -1,6 +1,6 @@
 // Postgres client
 const { Pool } = require('pg')
-const keys = require('../config/keys')
+const keys = require('./keys')
 
 const pgClient = new Pool({
 	user: keys.pgUser,
