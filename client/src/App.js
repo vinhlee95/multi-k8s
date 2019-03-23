@@ -30,6 +30,12 @@ function App() {
 		setIndex('')
 	}
 
+	const renderSeenIndexes = () => seenIndexes.map((seenIndex, index) => (
+		<div key={index}>{seenIndex}</div>
+	))
+
+	const renderValues = () => console.log(values)
+
 	return(
 		<form onSubmit={handleSubmit}>
 			<h1>Fib calculator</h1>
@@ -40,6 +46,8 @@ function App() {
 			<button type='submit' onClick={handleSubmit}>
 				Submit
 			</button>
+			{renderSeenIndexes()}
+			{renderValues()}
 		</form>
 	)
 }
