@@ -1,0 +1,26 @@
+sudo: required
+language: node_js
+node_js:
+  - "11.10.1"
+services:
+  - docker
+
+before_install:
+  - docker build -t vinhlee95/react-fibo-app -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run vinhlee95/react-fibo-app npm run test -- --coverage
+
+after_success:
+  # Build production images
+  - docker build -t vinhlee95/fibo-client ./client
+  - docker build -t vinhlee95/fibo-nginx ./nginx
+  - docker build -t vinhlee95/fibo-server ./server
+  - docker build -t vinhlee95/fibo-worker ./worker
+  # Login to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Push built images to Docker hub
+  - docker push vinhlee95/fibo-client
+  - docker push vinhlee95/fibo-nginx
+  - docker push vinhlee95/fibo-server
+  - docker push vinhlee95/fibo-worker
