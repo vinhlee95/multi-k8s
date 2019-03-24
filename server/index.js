@@ -38,7 +38,7 @@ app.post('/values', async (req, res) => {
 	redisPublisher.publish('insert', index)
 
 	// update db
-	await pgClient.query('INSERT INTO values(number) VALUES($1)', [index])
+	await pgClient.query('INSERT INTO values(number) VALUES ($1)', [index])
 
 	res.status(200).send({index})
 })

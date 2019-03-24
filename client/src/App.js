@@ -30,11 +30,12 @@ function App() {
 		setIndex('')
 	}
 
-	const renderSeenIndexes = () => seenIndexes.map((seenIndex, index) => (
-		<div key={index}>{seenIndex}</div>
-	))
+	console.log('Seen indexes', seenIndexes)
+	console.log('Values', values)
 
-	const renderValues = () => console.log(values)
+	const renderSeenIndexes = () => seenIndexes.map(index => (
+		<div key={index.number}>{index.number}</div>
+	))
 
 	return(
 		<form onSubmit={handleSubmit}>
@@ -46,8 +47,9 @@ function App() {
 			<button type='submit' onClick={handleSubmit}>
 				Submit
 			</button>
+			<h3>Calculated indexes:</h3>
 			{renderSeenIndexes()}
-			{renderValues()}
+			{/* {renderValues()} */}
 		</form>
 	)
 }
