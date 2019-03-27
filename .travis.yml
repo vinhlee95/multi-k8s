@@ -24,3 +24,16 @@ after_success:
   - docker push vinhlee95/fibo-nginx
   - docker push vinhlee95/fibo-server
   - docker push vinhlee95/fibo-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  app: "Fibo calculator"
+  env: "FiboCalculator-env"
+  bucket_name: "elasticbeanstalk-us-east-1-734739223659"
+  bucket_path: "fibo-docker-react"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key:
+    secure: "$AWS_SECRET_ACCESS_KEY"
