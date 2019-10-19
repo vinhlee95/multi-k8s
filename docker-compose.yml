@@ -13,6 +13,7 @@ services:
     volumes: # make sure that we don't have to rebuild the image when sth changes
       - /app/node_modules
       - ./server:/app
+    # set variables at run-time
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
