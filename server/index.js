@@ -9,14 +9,14 @@ const app = express();
 app.use(cors())
 app.use(bodyParser.json())
 
-app.get('/', (req, res) => 'Welcome to Fibo')
+app.get('/api/', (req, res) => 'Welcome to Fibo')
 
-app.get('/values', async (req, res) => {
+app.get('/api/values', async (req, res) => {
 	const values = await pgClient.query('SELECT * FROM values');
 	res.status(200).send(values.rows)
 })
 
-app.get('/values/current', async (req, res) => {
+app.get('/api/values/current', async (req, res) => {
 	redisClient.hgetall('values', (error, values) => {
 		if(error) {
 			res.status(500).send(error);
@@ -26,7 +26,7 @@ app.get('/values/current', async (req, res) => {
 	})
 })
 
-app.post('/values', async (req, res) => {
+app.post('/api/values', async (req, res) => {
 	const {index} = req.body
 
 	if(parseInt(index) > 40) {
