@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: client-pod
+  labels:
+    component: web
+spec:
+  containers: # Pod containers
+    - name: client
+      image: vinhlee95/fibo-client # Image in Docker Hub
+      ports:
+        - containerPort: 3000
