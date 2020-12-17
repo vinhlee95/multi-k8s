@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: client-deployment
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       component: web
@@ -16,4 +16,4 @@ spec:
         - name: client
           image: vinhlee95/fibo-client
           ports:
-            - containerPort: 3000
+            - containerPort: 5000
