@@ -7,6 +7,6 @@ metadata:
 spec:
   containers: # Pod containers
     - name: client
-      image: vinhlee95/fibo-client # Image in Docker Hub
+      image: vinhlee95/fibo-worker # Image in Docker Hub
       ports:
         - containerPort: 3000
