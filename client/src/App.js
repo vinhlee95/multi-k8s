@@ -39,7 +39,7 @@ function App() {
 
 	return(
 		<form onSubmit={handleSubmit}>
-			<h1>Fib calculator</h1>
+			<h1>Fib calculator (v3)</h1>
 			<input
 				value={index}
 				onChange={(e) => setIndex(e.target.value)}
