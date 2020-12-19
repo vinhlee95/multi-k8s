@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: server-cluster-ip-service
+spec:
+  type: ClusterIP
+  selector:
+    component: server # tell which Pods that this Service should route traffics to. Should match with the "labels" of the Pods' metadata
+  ports:
+    - port: 3003 # port of THIS clusterIP service that other Objects will use to communicate with
+      targetPort: 3003 # port of the Pods that this service manages
