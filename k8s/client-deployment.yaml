@@ -12,7 +12,7 @@ spec:
       labels:
         component: web
     spec:
-      container:
+      containers:
         - name: client
           image: vinhlee95/fibo-client
           ports:
