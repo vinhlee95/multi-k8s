@@ -21,7 +21,14 @@ spec:
           image: postgres
           ports:
             - containerPort: 5432
-          volumeMounts:
+          volumeMounts: # Persistent volume specific stuffs
             - name: postgres-storage
               mountPath: /var/lib/postgresql/data
               subPath: postgres
+          env:
+            - name: POSTGRES_PASSWORD # this is the only env variable required by postgres image
+              # see more: https://hub.docker.com/_/postgres
+              valueFrom:
+                secretKeyRef:
+                  name: pgpassword
+                  key: PGPASSWORD
