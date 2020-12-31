@@ -29,7 +29,7 @@ script:
 deployment:
   # Deploy from script file
   provider: script
-  script: shell ./deploy.sh
+  script: bash ./deploy.sh
   # Execute deploy script on pushing to master branch
   on:
     branch: master
