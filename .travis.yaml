@@ -1,0 +1,35 @@
+sudo: required
+services:
+  - docker
+env:
+  global:
+    - SHA=$(git rev-parse HEAD)
+    - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+before_install:
+  - openssl aes-256-cbc -K $encrypted_9f3b5599b056_key -iv $encrypted_9f3b5599b056_iv -in service-account.json.enc -out service-account.json -d # decrypt gcloud service account key and make it available in service-account.json
+  # Install and setup gcloud sdk
+  - curl https://sdk.cloud.google.com | bash > /dev/null;
+  - source $HOME/google-cloud-sdk/path.bash.inc
+  - gcloud components update kubectl
+  # Configure service account based on a valid IAM role
+  - gcloud auth activate-service-account --key-file service-account.json
+  # Configure default project and region
+  - gcloud config set project multi-k8s-20201227
+  - gcloud config set compute/zone europe-north1-a
+  # Specify Kubernetes cluster
+  - gcloud container clusters get-credentials multi-cluster
+  # Login to Docker Hub
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  # Build a Docker image for Client container so that we can run test on that container
+  - docker build -t vinhlee95/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run vinhlee95/react-test npm run test -- --coverage
+
+deployment:
+  # Deploy from script file
+  provider: script
+  script: shell ./deploy.sh
+  # Execute deploy script on pushing to master branch
+  on:
+    branch: master
