@@ -26,7 +26,7 @@ before_install:
 script:
   - docker run vinhlee95/react-test npm run test -- --coverage
 
-deployment:
+deploy:
   # Deploy from script file
   provider: script
   script: bash ./deploy.sh
